@@ -1,10 +1,12 @@
 
 public abstract class Entity {
 
-  private final UUID id;
+  private final UUID id;// we don't want that, we want to have SHA
   private String ownerUsername;
 
-  pbulic Entity(String ownerUsername) {
+  SHA sha = new SHA();
+
+  public Entity(String ownerUsername) {
     this.ownerUsername = ownerUsername;
   }
 
