@@ -15,8 +15,10 @@ if [ -z "$TARGET_DIR" ]; then
   exit 1
 fi
 
+JDBC_JAR="lib/sqlite-jdbc-3.36.0.3.jar"
+
 # Compile the Java file
-javac "$TARGET_DIR/$TARGET_FILE"
+javac -cp "$JDBC_JAR" -d bin "$TARGET_DIR/$TARGET_FILE"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
@@ -26,7 +28,7 @@ if [ $? -eq 0 ]; then
   cd "$BASE_DIR"
 
   # Run the compiled Java class (replace 'com.application' with the actual package name)
-  java com.application.Engine
+  java -cp "../bin:$JDBC_JAR" com.application.Engine
 else
   echo "Compilation failed."
   exit 1

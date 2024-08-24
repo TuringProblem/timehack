@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Random;
 
-
 public class SHA {
 
   // save the hash instead of the actual password
@@ -41,6 +40,7 @@ public class SHA {
       throw new RuntimeException("SHA-256 algorithmn is not working", e);
     }
   }
+
   public static void printPasswordWithEncryption(String key) {
     String salt = generateSalt();
     String hashedKey = hash(key, salt);
@@ -58,7 +58,5 @@ public class SHA {
     System.out.printf("Original with Hash and Salt: %s\n", hashedString);
   }
 
-
-
-  //add a get method, that gets the data. stored from the database.
+  // add a get method, that gets the data. stored from the database.
 }
