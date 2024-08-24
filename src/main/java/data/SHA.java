@@ -1,11 +1,11 @@
-package ;
+package data;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Random;
+
 
 public class SHA {
 
@@ -45,11 +45,6 @@ public class SHA {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException("SHA-256 algorithmn is not working", e);
     }
-  }
-
-  public void storeData() {
-
-    //
   }
 
   public static void showData() {

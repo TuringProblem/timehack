@@ -1,6 +1,7 @@
 package com.application;
 
-import com.data.SHA;
+
+import data.SHA;
 
 public class Engine {
 

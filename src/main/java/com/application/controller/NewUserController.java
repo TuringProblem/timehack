@@ -1,4 +1,4 @@
-public class NewUserController.java {
-
+package com.application.controller;
+public class NewUserController {
 
 }
