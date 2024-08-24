@@ -41,6 +41,7 @@ public class SHA {
       throw new RuntimeException("SHA-256 algorithmn is not working", e);
     }
   }
+
   public static void printPasswordWithEncryption(String key) {
     String salt = generateSalt();
     String hashedKey = hash(key, salt);
