@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 
 public class DatabaseConnection {
+
   public static Connection connect() {
     Connection conn = null;
     try {
@@ -21,5 +22,6 @@ public class DatabaseConnection {
   }
 
   Buffer buffer = new Buffer();
+
 
 }

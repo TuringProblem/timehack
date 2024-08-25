@@ -22,6 +22,7 @@ public class SHA {
   // make the salt either userName, or userID
 
   public static String hash(String data, String salt) {
+
     try {
       MessageDigest message = MessageDigest.getInstance("SHA-256");
       String saltedData = salt + data;
