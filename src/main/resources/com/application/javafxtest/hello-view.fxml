@@ -15,7 +15,6 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox prefHeight="600.0" prefWidth="800.0">
-            <!-- Left Side: Login Form -->
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-padding: 50;">
                 <children>
                     <Label text="WELCOME BACK" style="-fx-font-size: 24px; -fx-text-fill: #000000;"/>
@@ -30,12 +29,10 @@
                     <Button text="Sign in with Google" style="-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding: 10 30 10 30; -fx-background-radius: 5; -fx-border-color: #DDDDDD;"/>
                     <HBox>
                         <Label text="Don't have an account?" style="-fx-text-fill: #666666;"/>
-                        <Hyperlink text="Sign up for free!" style="-fx-text-fill: #FF0000;"/>
+                        <Hyperlink text="Sign up for free!" style="-fx-text-fill: #FF0000;" fx:id="signUpLink"/>
                     </HBox>
                 </children>
             </VBox>
-
-            <!-- Right Side: Image -->
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #F5F5F5;">
                 <children>
                     <ImageView fitWidth="400.0" fitHeight="600.0" preserveRatio="true" pickOnBounds="true">

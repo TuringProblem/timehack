@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.application.javafxtest.SignUpController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <VBox alignment="CENTER" spacing="10.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label text="Sign Up" style="-fx-font-size: 24px; -fx-text-fill: #000000;"/>
+                <TextField promptText="Enter your email" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
+                <PasswordField promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
+                <PasswordField promptText="Confirm Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
+                <Button text="Sign up" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
+                <Button text="Back to Login" fx:id="backToLoginButton" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
