@@ -7,9 +7,10 @@ public class SignUpController {
     @FXML private Button backToLoginButton;
 
     @FXML
-    private void initializer() {
+    private void initialize() {
         backToLoginButton.setOnAction(actionEvent ->  goBackToLogin());
     }
     @FXML
     private void goBackToLogin() {}
+
 }

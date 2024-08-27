@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.application.javafxtest.HelloController" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox prefHeight="600.0" prefWidth="800.0">
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-padding: 50;">
@@ -29,7 +29,7 @@
                     <Button text="Sign in with Google" style="-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding: 10 30 10 30; -fx-background-radius: 5; -fx-border-color: #DDDDDD;"/>
                     <HBox>
                         <Label text="Don't have an account?" style="-fx-text-fill: #666666;"/>
-                        <Hyperlink text="Sign up for free!" style="-fx-text-fill: #FF0000;" fx:id="signUpLink"/>
+                        <Hyperlink text="Sign up for free!" style="-fx-text-fill: #FF0000;" fx:id="signUpLink" onAction="#initialize"/>
                     </HBox>
                 </children>
             </VBox>

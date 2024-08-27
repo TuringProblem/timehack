@@ -1,5 +1,6 @@
 package com.application.javafxtest;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,21 +24,9 @@ public class HelloController {
 
     @FXML
     public void initialize() {
-        signUpLink.setOnAction(event -> {
-            try {
-                openSignUpScene();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Platform.runLater(() -> {
+            SceneManager sceneManager = new SceneManager((Stage) signUpLink.getScene().getWindow());
+            signUpLink.setOnAction(actionEvent -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
         });
-    }
-    @FXML
-    private void openSignUpScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/javafxtext/views/signup.fxml"));
-        AnchorPane signUpPane = loader.load();
-
-        Stage stage = (Stage) signUpLink.getScene().getWindow();
-        Scene scene = new Scene(signUpPane);
-        stage.setScene(scene);
     }
 }
