@@ -47,12 +47,27 @@ public class DatabaseManager {
             return false;
         }
     }
+    public User getUser(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+            pstmnt.setString(1, email);
+            ResultSet rs = pstmnt.executeQuery();
+
+            if (rs.next()) {
+                return new User (rs.getString("email"), stringToIntArray(rs.getString("hash_with_salt")), rs.getInt("is_new") == 1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public int[] getUserHashWithSalt(String email) {
         String sql = "SELECT hash_with_salt FROM users WHERE email = ?";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
         PreparedStatement pstmnt = conn.prepareStatement(sql)) {
-            pstmnt.setInt(1, email);
+            pstmnt.setString(1, email);
             ResultSet rs = pstmnt.executeQuery();
             if (rs.next()) {
                 return stringToIntArray(rs.getString("hash_with_salt"));

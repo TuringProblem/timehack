@@ -6,15 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 public class SceneManager {
-
     public Stage primaryStage;
     public SceneManager(Stage primaryStage) { this.primaryStage = primaryStage; }
+    public void switchToNewUserScene() { switchScene("new-user.fxml"); }
+    public void switchToExistingUserScene() { switchScene("existing-user.fxml"); }
 
     public void switchScene(String fxmlFilePath) {
         try {
@@ -22,6 +19,7 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

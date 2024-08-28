@@ -1,11 +1,16 @@
 package com.application.javafxtest.data;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 public class UserManager {
     private DatabaseManager dbManager;
 
     public UserManager() {
         dbManager = new DatabaseManager();
     }
+
     public boolean addUser(String email, String password) {
         byte[] salt = SHA.generateSalt();
         int[] hashWithSalt = SHA.hashWithSalt(password, salt);
@@ -20,7 +25,8 @@ public class UserManager {
         }
         return false;
     }
-    public boolean isNewUser(String email) { return dbManager.isNewUser(email); }
+    public boolean userExists(String email) { return dbManager.getUser(email) != null;}
+    public User getUser(String email) { return dbManager.getUser(email); }
     public void setUserAsExisting(String email) { dbManager.updateUserStatus(email, false); }
 
 }

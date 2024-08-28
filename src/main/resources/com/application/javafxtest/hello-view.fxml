@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane fx:controller="com.application.javafxtest.controller.HelloController" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.application.javafxtest.controller.LoginController" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox prefHeight="600.0" prefWidth="800.0">
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-padding: 50;">
                 <children>
                     <Label text="WELCOME BACK" style="-fx-font-size: 24px; -fx-text-fill: #000000;"/>
                     <Label text="Welcome back! Please enter your details." style="-fx-font-size: 16px; -fx-text-fill: #666666;"/>
-                    <TextField promptText="Enter your email" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
-                    <PasswordField promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
+                    <TextField fx:id="emailField" onAction="#initialize" promptText="Enter your email" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
+                    <PasswordField fx:id="passwordField" onAction="#initialize" promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
                     <HBox spacing="50.0">
                         <CheckBox text="Remember me"/>
                         <Hyperlink fx:id="forgotPassword" text="Forgot password?" style="-fx-text-fill: #FF0000;"/>
