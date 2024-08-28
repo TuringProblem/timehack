@@ -15,13 +15,18 @@ public class DatabaseManager {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
     public DatabaseManager() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            intializeDatabase();
+        } catch (ClassNotFoundException e) {
+            System.out.printf("JDBC Driver not found: %s", e.getMessage());
+        }
     }
 
     private void intializeDatabase() {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                      "email TEXT PRIMARY KEY," +
-                     "password_hash TEXT NOT NULL," +
-                     "salt TEXT NOT NULL," +
+                     "hash_with_salt NOT NULL," +
                      "is_new INTEGER NOT NULL)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -33,7 +38,7 @@ public class DatabaseManager {
     }
 
     public boolean addUser(String email, int[] hashWithSalt) {
-        String sql = "INSERT INTO user(email, hash_with_salt, salt, is_new) VALUES(?,?,?)";
+        String sql = "INSERT INTO users(email, hash_with_salt,is_new) VALUES(?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {

@@ -9,6 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUpController {
 
     @FXML private TextField emailField;
@@ -17,6 +20,7 @@ public class SignUpController {
     @FXML private Button signUpButton;
     @FXML private Button backToLoginButton;
     private UserManager userManager;
+    LoginUtility logs = new LoginUtility();
     @FXML
     private void initialize() {
         userManager = new UserManager();
@@ -29,29 +33,28 @@ public class SignUpController {
         String password = passwordField.getText();
         String confirmPass = confirmPasswordField.getText();
 
+        if (!logs.isValidEmail(email)) {
+            logs.showAlert("Invalid Email", "Please enter a valid email addres.");
+            return;
+        }
         if (!password.equals(confirmPass)) {
-            showAlert("Sign Up Failed", "Passwords do not match.");
+            logs.showAlert("Sign Up Failed", "Passwords do not match.");
             return;
         }
         if (userManager.addUser(email, password)) {
-            showAlert("Sign Up Successful", "Your account has been created.");
+            logs.showAlert("Sign Up Successful", "Your account has been created.");
             //need to send the user to the next stages of the application
         } else {
-            showAlert("Sign Up Failed", "An account with this email already exists.");
+            logs.showAlert("Sign Up Failed", "An account with this email already exists.");
         }
     }
+
     @FXML
     private void goBackToLogin() {
        SceneManager scene = new SceneManager((Stage) backToLoginButton.getScene().getWindow());
         backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/hello-view.fxml"));
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
 
 }
