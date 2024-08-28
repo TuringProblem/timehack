@@ -23,9 +23,9 @@
                     <PasswordField promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
                     <HBox spacing="50.0">
                         <CheckBox text="Remember me"/>
-                        <Hyperlink text="Forgot password?" style="-fx-text-fill: #FF0000;"/>
+                        <Hyperlink fx:id="forgotPassword" text="Forgot password?" style="-fx-text-fill: #FF0000;"/>
                     </HBox>
-                    <Button text="Sign in" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
+                    <Button fx:id="signIn" text="Sign in" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
                     <Button text="Sign in with Google" style="-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding: 10 30 10 30; -fx-background-radius: 5; -fx-border-color: #DDDDDD;"/>
                     <HBox>
                         <Label text="Don't have an account?" style="-fx-text-fill: #666666;"/>

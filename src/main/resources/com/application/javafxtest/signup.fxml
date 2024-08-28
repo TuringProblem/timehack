@@ -19,7 +19,7 @@
                 <PasswordField promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
                 <PasswordField promptText="Confirm Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
                 <Button text="Sign up" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
-                <Button text="Back to Login" fx:id="backToLoginButton" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
+                <Button text="Back to Login" fx:id="backToLoginButton" onAction="#initialize" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
             </children>
         </VBox>
     </children>
