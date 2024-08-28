@@ -1,5 +1,6 @@
-package com.application.javafxtest;
+package com.application.javafxtest.controller;
 
+import com.application.javafxtest.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
