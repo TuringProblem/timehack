@@ -6,8 +6,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginUtility {
+    public void showInformationAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
-    public void showAlert(String title, String content) {
+    public void showErrorAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);

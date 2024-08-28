@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.application.javafxtest.data.User"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.application.javafxtest.controller.NewUserSetupController"
+      alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
+    <children>
+        <Label text="Choose your Calendar" style="-fx-font-size: 18px;"/>
+        <Button text="Google" onAction="#handleGoogleCalendar"/>
+        <Button text="Apple" onAction="#handleAppleCalendar"/>
+        <Button text="Outlook" onAction="#handleOutlookCalendar"/>
+        <Button text="Create Your Own" onAction="#handleCreateYourOwnCalendar"/>
+    </children>
+</VBox>
 
-</AnchorPane>

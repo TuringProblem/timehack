@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class SceneManager {
     public Stage primaryStage;
+    public  SceneManager() {}
     public SceneManager(Stage primaryStage) { this.primaryStage = primaryStage; }
     public void switchToNewUserScene() { switchScene("new-user.fxml"); }
     public void switchToExistingUserScene() { switchScene("existing-user.fxml"); }
