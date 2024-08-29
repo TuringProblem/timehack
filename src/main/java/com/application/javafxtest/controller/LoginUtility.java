@@ -1,11 +1,18 @@
 package com.application.javafxtest.controller;
 
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginUtility {
+    @FXML
+    public void sendNewUser(Scene state) {
+
+    }
+
     public void showInformationAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

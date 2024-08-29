@@ -26,14 +26,13 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        Platform.runLater(() -> {
-            userManager = new UserManager();
-            sceneManager = new SceneManager((Stage) signUpLink.getScene().getWindow());
-
-            signUpLink.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
-            forgotPassword.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/forgot-password.fxml"));
-            signIn.setOnAction(event -> handleSignIn());
-        });
+       Platform.runLater(()  -> {
+           userManager = new UserManager();
+           sceneManager = new SceneManager((Stage) signUpLink.getScene().getWindow());
+           signUpLink.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
+           forgotPassword.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/forgot-password.fxml"));
+           signIn.setOnAction(event -> handleSignIn());
+       });
     }
 
     private void handleSignIn() {
@@ -46,12 +45,10 @@ public class LoginController {
             return;
         }
         if (userManager.authenticateUser(email, password)) {
-            User user = (User) userManager.getUser(email);
-
-            if (user.isNew()) {
-                sceneManager.switchScene("/com/application/javafxtest/new-user.fxml");
+            if (userManager.getUser(email).isNew()) {
+                sceneManager.switchToNewUserScene();
             } else {
-                sceneManager.switchScene("/com/application/javafxtest/existing-user.fxml");
+                sceneManager.switchToExistingUserScene();
             }
         } else {
             showAlert("Authentication Failed", "Invalid email or password.");

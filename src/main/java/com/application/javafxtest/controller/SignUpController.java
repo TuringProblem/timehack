@@ -8,6 +8,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author Override
+ * @since 08/28/2024 @02:47
+ * @see <a href="https://github.com/TuringProblem">GitHub Profile</a>
+ */
 
 public class SignUpController {
 
@@ -17,13 +22,15 @@ public class SignUpController {
     @FXML private Button signUpButton;
     @FXML private Button backToLoginButton;
     private UserManager userManager;
-    SceneManager scene = new SceneManager();
-    LoginUtility logs = new LoginUtility();
+    public SceneManager scene = new SceneManager();
+    public LoginUtility logs = new LoginUtility();
     @FXML
     private void initialize() {
         userManager = new UserManager();
+        scene = new SceneManager((Stage) signUpButton.getScene().getWindow());
+
         signUpButton.setOnAction(actionEvent -> handleSignUp());
-        backToLoginButton.setOnAction(actionEvent ->  goBackToLogin());
+        backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/applicatoin/javafxtest/hello-view.fxml"));
     }
     @FXML
     private void handleSignUp() {
@@ -44,15 +51,11 @@ public class SignUpController {
             scene.switchScene("/com/application/javafxtest/new-users.fxml");
         } else {
             logs.showErrorAlert("Sign Up Failed", "An account with this email already exists.");
-            //scene.switchScene();
+            goBackToLogin();
         }
     }
-
     @FXML
     private void goBackToLogin() {
         backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/hello-view.fxml"));
     }
-
-
-
 }

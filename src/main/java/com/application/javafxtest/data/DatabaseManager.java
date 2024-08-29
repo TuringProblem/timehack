@@ -19,7 +19,7 @@ public class DatabaseManager {
             Class.forName("org.sqlite.JDBC");
             intializeDatabase();
         } catch (ClassNotFoundException e) {
-            System.out.printf("JDBC Driver not found: %s", e.getMessage());
+            System.out.printf("JDBC Driver not found: %s\n", e.getMessage());
         }
     }
 
@@ -33,7 +33,7 @@ public class DatabaseManager {
             Statement stmnt = conn.createStatement()) {
             stmnt.execute(sql);
         } catch (SQLException e) {
-            System.out.printf("Error initializing Database: %s", e.getMessage());
+            System.out.printf("Error initializing Database: %s\n", e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class DatabaseManager {
             pstmnt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.printf("Can't add to Database: %s", e.getMessage());
+            System.out.printf("Can't add to Database: %s\n", e.getMessage());
             return false;
         }
     }
@@ -78,7 +78,7 @@ public class DatabaseManager {
                 return stringToIntArray(rs.getString("hash_with_salt"));
             }
         } catch (SQLException e) {
-            System.out.printf("Error getting user hash: %s", e.getMessage());
+            System.out.printf("Error getting user hash: %s\n", e.getMessage());
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class DatabaseManager {
                  return rs.getInt("is_new") == 1;
              }
          } catch (SQLException e) {
-             System.out.printf("Error checking if user is new: %s", e.getMessage());
+             System.out.printf("Error checking if user is new: %s\n", e.getMessage());
          }
          return false;
     }
@@ -107,7 +107,7 @@ public class DatabaseManager {
             pstmnt.setString(2, email);
             pstmnt.executeUpdate();
         } catch (SQLException e) {
-            System.out.printf("Error updating user status: %s", e.getMessage());
+            System.out.printf("Error updating user status: %s\n", e.getMessage());
         }
     }
     private String intArrayToString(int[] array) { return Arrays.stream(array).mapToObj(String::valueOf).collect(Collectors.joining(",")); }

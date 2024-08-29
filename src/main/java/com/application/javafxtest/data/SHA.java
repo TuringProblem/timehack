@@ -21,8 +21,6 @@ public class SHA {
         random.nextBytes(salt);
         return salt;
     }
-
-
     public static int[] hashWithSalt(String password, byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
