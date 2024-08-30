@@ -28,7 +28,8 @@ public class LoginController {
     public void initialize() {
        Platform.runLater(()  -> {
            userManager = new UserManager();
-           sceneManager = new SceneManager((Stage) signUpLink.getScene().getWindow());
+           Stage currentStage = (Stage) signIn.getScene().getWindow();
+           sceneManager = new SceneManager(currentStage);
            signUpLink.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
            forgotPassword.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/forgot-password.fxml"));
            signIn.setOnAction(event -> handleSignIn());
@@ -45,11 +46,13 @@ public class LoginController {
             return;
         }
         if (userManager.authenticateUser(email, password)) {
+
             if (userManager.getUser(email).isNew()) {
                 sceneManager.switchToNewUserScene();
             } else {
                 sceneManager.switchToExistingUserScene();
             }
+
         } else {
             showAlert("Authentication Failed", "Invalid email or password.");
         }

@@ -2,6 +2,7 @@ package com.application.javafxtest.controller;
 
 import com.application.javafxtest.SceneManager;
 import com.application.javafxtest.data.UserManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -26,11 +27,12 @@ public class SignUpController {
     public LoginUtility logs = new LoginUtility();
     @FXML
     private void initialize() {
-        userManager = new UserManager();
-        scene = new SceneManager((Stage) signUpButton.getScene().getWindow());
-
-        signUpButton.setOnAction(actionEvent -> handleSignUp());
-        backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/applicatoin/javafxtest/hello-view.fxml"));
+        Platform.runLater(() -> {
+            Stage currentStage = (Stage) signUpButton.getScene().getWindow();
+            scene = new SceneManager(currentStage);
+            signUpButton.setOnAction(actionEvent -> handleSignUp());
+            backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/hello-view.fxml"));
+        });
     }
     @FXML
     private void handleSignUp() {
