@@ -1,6 +1,7 @@
-package com.application.javafxtest.controller;
+package com.application.javafxtest.controller.login;
 
 import com.application.javafxtest.SceneManager;
+import com.application.javafxtest.controller.LoginUtility;
 import com.application.javafxtest.data.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

@@ -1,0 +1,40 @@
+
+.root {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #0d1117;
+}
+
+.login-box, .signup-box {
+    -fx-background-color: #FAFFFF;
+    -fx-padding: 20;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #0d1117;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #0d1117;
+}
+
+.primary-button {
+    -fx-background-color: #39e75f;
+    -fx-text-fill: #FFFFFF;
+}
+
+.secondary-button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-border-color: #D1D5DB;;
+}
+
+.hyperlink {
+    -fx-text-fill: #39e75f;
+}
+
+.theme-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: #0d1117;
+}

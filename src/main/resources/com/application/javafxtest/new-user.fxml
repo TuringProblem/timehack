@@ -3,16 +3,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ToggleButton?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.application.javafxtest.controller.NewUserSetupController"
-      alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
-    <children>
-        <Label text="Choose your Calendar" style="-fx-font-size: 18px;"/>
-        <Button fx:id="googleButton" text="Google" onAction="#handleGoogleCalendar"/>
-        <Button fx:id="appleButton" text="Apple" onAction="#handleAppleCalendar"/>
-        <Button fx:id="outlookButton" text="Outlook" onAction="#handleOutlookCalendar"/>
-        <Button fx:id="createOwnButton" text="Create Your Own" onAction="#handleCreateYourOwnCalendar"/>
-    </children>
+      alignment="CENTER" spacing="20.0" styleClass="root">
+    <HBox alignment="TOP_RIGHT" spacing="10" styleClass="header">
+        <ToggleButton fx:id="darkModeToggle" text="Dark Mode" onAction="#toggleDarkMode"/>
+    </HBox>
+    <Label text="Choose your Calendar" styleClass="title-label"/>
+    <Button fx:id="googleButton" text="Google" onAction="#handleGoogleCalendar" styleClass="calendar-button"/>
+    <Button fx:id="appleButton" text="Apple" onAction="#handleAppleCalendar" styleClass="calendar-button"/>
+    <Button fx:id="outlookButton" text="Outlook" onAction="#handleOutlookCalendar" styleClass="calendar-button"/>
+    <Button fx:id="createOwnButton" text="Create Your Own" onAction="#handleCreateYourOwnCalendar" styleClass="calendar-button"/>
 </VBox>
-

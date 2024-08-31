@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.application.javafxtest.controller.SignUpController"
-            prefHeight="400.0" prefWidth="600.0">
-
+            prefHeight="600.0" prefWidth="800.0" styleClass="root">
     <children>
-        <VBox alignment="CENTER" spacing="10.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;">
-            <children>
-                <Label text="Sign Up" style="-fx-font-size: 24px; -fx-text-fill: #000000;"/>
-                <TextField fx:id="emailField" onAction="#initialize" promptText="Enter your email" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
-                <PasswordField fx:id="passwordField" onAction="#initialize" promptText="Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
-                <PasswordField fx:id="confirmPasswordField" onAction="#initialize" promptText="Confirm Password" prefWidth="300.0" style="-fx-padding: 10; -fx-background-radius: 5; -fx-background-color: #EFEFEF;"/>
-                <Button fx:id="signUpButton" onAction="#initialize" text="Sign up" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
-                <Button text="Back to Login" fx:id="backToLoginButton" onAction="#initialize" style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-padding: 10 30 10 30; -fx-background-radius: 5;"/>
-            </children>
+        <ToggleButton fx:id="themeToggle" text="☀️" styleClass="theme-toggle"
+                      AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+        <VBox alignment="CENTER" spacing="20.0" prefHeight="600.0" prefWidth="800.0" styleClass="signup-box">
+            <Label text="Sign Up" styleClass="title-label"/>
+            <TextField fx:id="emailField" promptText="Enter your email" styleClass="text-field"/>
+            <PasswordField fx:id="passwordField" promptText="Password" styleClass="text-field"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="text-field"/>
+            <Button fx:id="signUpButton" text="Sign up" styleClass="primary-button"/>
+            <Button fx:id="backToLoginButton" text="Back to Login" styleClass="secondary-button"/>
         </VBox>
     </children>
 </AnchorPane>

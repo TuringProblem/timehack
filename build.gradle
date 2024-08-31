@@ -63,3 +63,12 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+
+// This ensures that the CSS files in the resources directory are included in the build
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}

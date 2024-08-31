@@ -7,10 +7,9 @@ import javafx.scene.control.ListView;
 
 import java.util.List;
 
-public class LivestyleBrowserController {
+public class LifestyleBrowserController {
     @FXML private ListView<Lifestyles> lifestyleListView;
     private DatabaseManager dbManager;
-
     @FXML
     public void initialize() {
         dbManager = new DatabaseManager();

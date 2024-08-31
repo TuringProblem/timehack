@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #0d1117;
+    -fx-text-fill: #FFFFFF;
+}
+
+.login-box, .signup-box {
+    -fx-background-color: #1f2937;
+    -fx-padding: 20;
+}
+
+.theme-toggle {
+    -fx-background-color: rgba(237, 234, 53, 0.7);
+    -fx-text-fill: rgba(237, 234, 53, 0.7);
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #374151;
+    -fx-text-fill: #FFFFFF;
+}
+
+.primary-button {
+    -fx-background-color: #39e75f;
+    -fx-text-fill: #FFF;
+}
+
+.secondary-button {
+    -fx-background-color: #1f2937;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #4b5563;
+}
+
+.hyperlink {
+    -fx-text-fill: #39e75f;
+}
+.text {
+    -fx-text-fill: #fff;
+}
+.hyperlink:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: #fff;
+}
+
+.theme-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+}

@@ -9,4 +9,6 @@ module com.application.javafxtest {
     exports com.application.javafxtest;
     exports com.application.javafxtest.controller;
     opens com.application.javafxtest.controller to javafx.fxml;
+    exports com.application.javafxtest.controller.login;
+    opens com.application.javafxtest.controller.login to javafx.fxml;
 }

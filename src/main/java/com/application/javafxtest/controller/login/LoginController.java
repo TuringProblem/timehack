@@ -1,9 +1,12 @@
-package com.application.javafxtest.controller;
+package com.application.javafxtest.controller.login;
 
 import com.application.javafxtest.SceneManager;
+import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import com.application.javafxtest.model.ThemeToggleButton;
+import com.application.javafxtest.model.UserPreferences;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,28 +17,27 @@ import javafx.stage.Stage;
  * @see <a href="https://github.com/TuringProblem/timehack.git">GitHub Reference</a>
  */
 
-public class LoginController {
+public class LoginController extends BaseController {
     @FXML private Label messageLabel;
-    @FXML private Hyperlink signUpLink;
-    @FXML private Hyperlink forgotPassword;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private Button signIn;
+    @FXML private Hyperlink signUpLink;
+    @FXML private Hyperlink forgotPassword;
 
     private UserManager userManager;
     private SceneManager sceneManager;
 
     @FXML
+    @Override
     public void initialize() {
-       Platform.runLater(()  -> {
-           userManager = new UserManager();
-           Stage currentStage = (Stage) signIn.getScene().getWindow();
-           sceneManager = new SceneManager(currentStage);
-           signUpLink.getScene().getWindow();
-           signUpLink.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
-           forgotPassword.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/forgot-password.fxml"));
-           signIn.setOnAction(event -> handleSignIn());
-       });
+        super.initialize();
+        userManager = new UserManager();
+        sceneManager = new SceneManager();
+
+        signIn.setOnAction(event -> handleSignIn());
+        signUpLink.setOnAction(event -> sceneManager.signInScreen());
+        forgotPassword.setOnAction(event -> sceneManager.signInScreen());
     }
 
     private void handleSignIn() {
