@@ -37,13 +37,13 @@ public class DatabaseManager {
         }
     }
 
-    public boolean addUser(String email, int[] hashWithSalt) {
+    public boolean addUser(String email, String hashWithSalt) {
         String sql = "INSERT INTO users(email, hash_with_salt,is_new) VALUES(?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, email);
-            pstmnt.setString(2, intArrayToString(hashWithSalt));
+            pstmnt.setString(2, hashWithSalt);
             pstmnt.setInt(3, 1);
             pstmnt.executeUpdate();
             return true;
@@ -60,14 +60,14 @@ public class DatabaseManager {
             ResultSet rs = pstmnt.executeQuery();
 
             if (rs.next()) {
-                return new User (rs.getString("email"), stringToIntArray(rs.getString("hash_with_salt")), rs.getInt("is_new") == 1);
+                return new User (rs.getString("email"), rs.getString("hash_with_salt"), rs.getInt("is_new") == 1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public int[] getUserHashWithSalt(String email) {
+    public String getUserHashWithSalt(String email) {
         String sql = "SELECT hash_with_salt FROM users WHERE email = ?";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -75,7 +75,7 @@ public class DatabaseManager {
             pstmnt.setString(1, email);
             ResultSet rs = pstmnt.executeQuery();
             if (rs.next()) {
-                return stringToIntArray(rs.getString("hash_with_salt"));
+                return rs.getString("hash_with_salt");
             }
         } catch (SQLException e) {
             System.out.printf("Error getting user hash: %s\n", e.getMessage());
@@ -110,7 +110,6 @@ public class DatabaseManager {
             System.out.printf("Error updating user status: %s\n", e.getMessage());
         }
     }
-    private String intArrayToString(int[] array) { return Arrays.stream(array).mapToObj(String::valueOf).collect(Collectors.joining(",")); }
     private int[] stringToIntArray(String s) { return Arrays.stream(s.split(",")).mapToInt(Integer::parseInt).toArray();}
 }
 

@@ -14,6 +14,7 @@ import java.util.Random;
  */
 
 public class SHA {
+    private static final int STORED_LENGTH = 40;
 
     public static byte[] generateSalt() {
         Random random = new Random();
@@ -21,7 +22,7 @@ public class SHA {
         random.nextBytes(salt);
         return salt;
     }
-    public static int[] hashWithSalt(String password, byte[] salt) {
+    public static String hashWithSalt(String password, byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(salt);
@@ -31,23 +32,23 @@ public class SHA {
             System.arraycopy(salt, 0, combined, 0, salt.length);
             System.arraycopy(hashBytes, 0, combined, salt.length, hashBytes.length);
 
-            int[] result = new int[combined.length];
-            for (int i = 0; i < result.length; i++) {
-              result[i] = combined[i] & 0xff;
-            }
-            return result;
+            String base64Encoded = Base64.getEncoder().encodeToString(combined);
+            return base64Encoded.substring(0, Math.min(base64Encoded.length(), STORED_LENGTH));
         } catch (NoSuchAlgorithmException e) {
           throw new RuntimeException("SHA-256 algorithmn is not available", e);
         }
     }
 
-    public static boolean verifyPassword(String password, int[] storedHashWithSalt) {
-      byte[] salt = new byte[16];
-      for (int i = 0; i < 16; i++) {
-        salt[i] = (byte) storedHashWithSalt[i];
-      }
+    public static boolean verifyPassword(String password, String storedHashWithSalt) {
+        try {
+            byte[] decodedStored = Base64.getDecoder().decode(storedHashWithSalt);
+            byte[] salt = Arrays.copyOfRange(decodedStored, 0, 16);
 
-      int[] computedHash = hashWithSalt(password, salt);
-      return java.util.Arrays.equals(computedHash, storedHashWithSalt);
+            String computedHash = hashWithSalt(password, salt);
+            return computedHash.equalsIgnoreCase(storedHashWithSalt);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getCause());
+            return false;
+        }
     }
 }

@@ -27,15 +27,18 @@ public class SignUpController {
     public LoginUtility logs = new LoginUtility();
     @FXML
     private void initialize() {
+        userManager = new UserManager();
+
         Platform.runLater(() -> {
             Stage currentStage = (Stage) signUpButton.getScene().getWindow();
             scene = new SceneManager(currentStage);
             signUpButton.setOnAction(actionEvent -> handleSignUp());
-            backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/hello-view.fxml"));
+            backToLoginButton.setOnAction(actionEvent -> scene.signInScreen());
         });
     }
     @FXML
     private void handleSignUp() {
+
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPass = confirmPasswordField.getText();
@@ -50,7 +53,10 @@ public class SignUpController {
         }
         if (userManager.addUser(email, password)) {
             logs.showInformationAlert("Sign Up Successful", "Your account has been created.");
-            scene.switchScene("/com/application/javafxtest/new-users.fxml");
+            scene.close();
+            Platform.runLater(() -> {
+                scene.signInScreen();
+            });
         } else {
             logs.showErrorAlert("Sign Up Failed", "An account with this email already exists.");
             goBackToLogin();

@@ -13,13 +13,12 @@ public class UserManager {
 
     public boolean addUser(String email, String password) {
         byte[] salt = SHA.generateSalt();
-        int[] hashWithSalt = SHA.hashWithSalt(password, salt);
-        int[] truncatedHashWithSalt = java.util.Arrays.copyOf(hashWithSalt, 40);
-        return dbManager.addUser(email, truncatedHashWithSalt);
+        String hashWithSalt = SHA.hashWithSalt(password, salt);
+        return dbManager.addUser(email, hashWithSalt);
     }
 
     public boolean authenticateUser(String email, String password) {
-        int[] storedHashWithSalt = dbManager.getUserHashWithSalt(email);
+        String storedHashWithSalt = dbManager.getUserHashWithSalt(email);
         if (storedHashWithSalt != null) {
             return SHA.verifyPassword(password, storedHashWithSalt);
         }

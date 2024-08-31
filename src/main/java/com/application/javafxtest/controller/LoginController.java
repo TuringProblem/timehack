@@ -1,6 +1,7 @@
 package com.application.javafxtest.controller;
 
 import com.application.javafxtest.SceneManager;
+import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
 import javafx.application.Platform;
@@ -30,6 +31,7 @@ public class LoginController {
            userManager = new UserManager();
            Stage currentStage = (Stage) signIn.getScene().getWindow();
            sceneManager = new SceneManager(currentStage);
+           signUpLink.getScene().getWindow();
            signUpLink.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/signup.fxml"));
            forgotPassword.setOnAction(event -> sceneManager.switchScene("/com/application/javafxtest/forgot-password.fxml"));
            signIn.setOnAction(event -> handleSignIn());
@@ -45,14 +47,17 @@ public class LoginController {
             sceneManager.switchScene("/com/application/javafxtest/signup.fxml");
             return;
         }
+
         if (userManager.authenticateUser(email, password)) {
+            User user = userManager.getUser(email);
 
-            if (userManager.getUser(email).isNew()) {
-                sceneManager.switchToNewUserScene();
-            } else {
-                sceneManager.switchToExistingUserScene();
+            if (user != null && SHA.verifyPassword(password, user.getHashWithSalt())) {
+                if (user.isNew()) {
+                    sceneManager.switchToNewUserScene();
+                } else {
+                    sceneManager.switchToExistingUserScene();
+                }
             }
-
         } else {
             showAlert("Authentication Failed", "Invalid email or password.");
         }
