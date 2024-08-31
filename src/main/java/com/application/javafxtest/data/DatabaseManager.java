@@ -1,7 +1,11 @@
 package com.application.javafxtest.data;
 
+import com.application.javafxtest.model.Lifestyles;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +56,45 @@ public class DatabaseManager {
             return false;
         }
     }
+
+    public void addLifeStyle(Lifestyles lifestyle) {
+        String sql = "INSERT INTO lifestyles (creator_id, title, description, content, is_public) VALUES (?, ?, ?, ?,?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+            pstmnt.setInt(1, lifestyle.getCreatorId());
+            pstmnt.setString(2, lifestyle.getTitle());
+            pstmnt.setString(3, lifestyle.getDescription());
+            pstmnt.setString(4, lifestyle.getContent());
+            pstmnt.setBoolean(5, lifestyle.isPublic());
+            pstmnt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error adding lifestyle: " + e.getMessage());
+        }
+    }
+
+    public List<Lifestyles> getPublicLifestyles() {
+        List<Lifestyles> lifestylesList = new ArrayList<>();
+        String sql = "SELECT * FROM lifestyles WHERE is_public = true";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Lifestyles lifestyle = new Lifestyles(
+                rs.getInt("id"),
+                rs.getInt("creator_id"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("content"),
+                rs.getBoolean("is_public"));
+                lifestylesList.add(lifestyle);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting public lifestyles: " + e.getMessage());
+        }
+        return lifestylesList;
+    }
+
     public User getUser(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL);

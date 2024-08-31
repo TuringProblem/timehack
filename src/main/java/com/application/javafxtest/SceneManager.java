@@ -37,6 +37,9 @@ public class SceneManager {
     public void signInScreen() { switchScene("hello-view.fxml"); }
     public void switchToNewUserScene() { switchScene("new-user.fxml"); }
     public void switchToExistingUserScene() { switchScene("existing-user.fxml"); }
+
+
+
     public void switchScene(String fxmlFilePath) { loadScene(fxmlFilePath); }
     public void show() { this.primaryStage.show(); }
     public void close() { this.primaryStage.close(); }

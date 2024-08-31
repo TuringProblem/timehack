@@ -9,10 +9,10 @@
       alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
     <children>
         <Label text="Choose your Calendar" style="-fx-font-size: 18px;"/>
-        <Button text="Google" onAction="#handleGoogleCalendar"/>
-        <Button text="Apple" onAction="#handleAppleCalendar"/>
-        <Button text="Outlook" onAction="#handleOutlookCalendar"/>
-        <Button text="Create Your Own" onAction="#handleCreateYourOwnCalendar"/>
+        <Button fx:id="googleButton" text="Google" onAction="#handleGoogleCalendar"/>
+        <Button fx:id="appleButton" text="Apple" onAction="#handleAppleCalendar"/>
+        <Button fx:id="outlookButton" text="Outlook" onAction="#handleOutlookCalendar"/>
+        <Button fx:id="createOwnButton" text="Create Your Own" onAction="#handleCreateYourOwnCalendar"/>
     </children>
 </VBox>
 
