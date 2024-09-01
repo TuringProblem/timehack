@@ -5,18 +5,13 @@ import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
-import com.application.javafxtest.model.ThemeToggleButton;
-import com.application.javafxtest.model.UserPreferences;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 /**
  * @author Override
  * @since 8/27/2024 @ 19:01
  * @see <a href="https://github.com/TuringProblem/timehack.git">GitHub Reference</a>
  */
-
 public class LoginController extends BaseController {
     @FXML private Label messageLabel;
     @FXML private TextField emailField;
@@ -36,11 +31,13 @@ public class LoginController extends BaseController {
         sceneManager = new SceneManager();
 
         signIn.setOnAction(event -> handleSignIn());
-        signUpLink.setOnAction(event -> sceneManager.signInScreen());
-        forgotPassword.setOnAction(event -> sceneManager.signInScreen());
+        signUpLink.setOnAction(event -> sceneManager.switchToSignUpScene());
+        forgotPassword.setOnAction(event -> sceneManager.switchToForgotPasswordScene());
+
     }
 
     private void handleSignIn() {
+
         String email = emailField.getText();
         String password = passwordField.getText();
 

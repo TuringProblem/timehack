@@ -30,7 +30,7 @@ public class LoginUtility {
     }
 
     public boolean isValidEmail(String email) {
-        String emailRegex = "^[\\w-\\.]+@[\\w-\\.]+\\.com$";
+        String emailRegex = "^[\\w-\\.]+@[\\w-\\.]+\\.[a-z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

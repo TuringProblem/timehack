@@ -1,5 +1,6 @@
 package com.application.javafxtest;
 
+import com.application.javafxtest.data.User;
 import com.application.javafxtest.model.UserPreferences;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -23,11 +24,11 @@ public class SceneManager {
 
      public SceneManager () {
          this.primaryStage = new Stage();
-         this.userPreferences = new UserPreferences();
+         this.userPreferences = UserPreferences.getInstance();
      }
     public SceneManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.userPreferences = new UserPreferences();
+        this.userPreferences = UserPreferences.getInstance();
     }
 
     private void loadScene(String fxmlFilePath) {
@@ -36,6 +37,10 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             userPreferences.applyTheme(scene);
+
+            if (primaryStage.isShowing()) {
+                primaryStage.close();
+            }
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

@@ -21,7 +21,7 @@ public class NewUserSetupController {
     @FXML
     public void initialize() {
         sceneManager = new SceneManager();
-        userPrefs = new UserPreferences();
+        userPrefs = UserPreferences.getInstance();
     }
 
     @FXML

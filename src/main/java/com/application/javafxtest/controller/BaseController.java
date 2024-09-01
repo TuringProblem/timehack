@@ -1,5 +1,6 @@
 package com.application.javafxtest.controller;
 
+import com.application.javafxtest.data.User;
 import com.application.javafxtest.model.UserPreferences;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
@@ -9,7 +10,7 @@ public abstract class BaseController {
     protected UserPreferences userPreferences;
 
     public void initialize() {
-        userPreferences = new UserPreferences();
+        userPreferences = UserPreferences.getInstance();
         initializeThemeToggle();
     }
     private void initializeThemeToggle() {
