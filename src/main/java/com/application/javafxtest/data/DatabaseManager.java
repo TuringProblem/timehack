@@ -126,20 +126,20 @@ public class DatabaseManager {
         return null;
     }
 
-    public boolean isNewUser(String email) {
-        String sql = "SELECT is_new FROM users WHERE email = ?";
-         try (Connection conn = DriverManager.getConnection(DB_URL);
-         PreparedStatement pstmnt = conn.prepareStatement(sql)) {
-             pstmnt.setString(1, email);
-             ResultSet rs = pstmnt.executeQuery();
-
-             if (rs.next()) {
-                 return rs.getInt("is_new") == 1;
-             }
-         } catch (SQLException e) {
-             System.out.printf("Error checking if user is new: %s\n", e.getMessage());
-         }
-         return false;
+    public boolean emailExists(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+            pstmnt.setString(1, email);
+            try (ResultSet rs = pstmnt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.printf("Error checking if email exists: %s\n", e.getMessage());
+        }
+        return false;
     }
 
     public void updateUserStatus(String email, boolean isNew) {

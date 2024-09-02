@@ -20,11 +20,11 @@
 
 .text-field, .password-field {
     -fx-background-color: #374151;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #6FC276;
 }
 
 .primary-button {
-    -fx-background-color: #39e75f;
+    -fx-background-color: #6FC276;
     -fx-text-fill: #FFF;
 }
 .subtitle-label {
@@ -36,7 +36,7 @@
     -fx-border-color: #4b5563;
 }
 .hyperlink {
-    -fx-text-fill: #39e75f;
+    -fx-text-fill: #6FC2766FC2766FC2766FC2766FC2766FC276;
 }
 .hyperlink:hover {
     -fx-background-color: transparent;

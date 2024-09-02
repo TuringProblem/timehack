@@ -2,11 +2,10 @@ package com.application.javafxtest.controller.login;
 
 import com.application.javafxtest.SceneManager;
 import com.application.javafxtest.controller.BaseController;
-import com.application.javafxtest.controller.LoginUtility;
+import com.application.javafxtest.controller.utility.LoginUtility;
 import com.application.javafxtest.data.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -41,11 +40,9 @@ public class SignUpController extends BaseController {
         scene = new SceneManager(stage);
         backToLoginButton.setOnAction(actionEvent -> scene.switchScene(actionEvent, scene::signInScreen));
         signUpButton.setOnAction(actionEvent -> handleSignUp());
-    }   
-
+    }
 
     private void handleSignUp() {
-
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPass = confirmPasswordField.getText();

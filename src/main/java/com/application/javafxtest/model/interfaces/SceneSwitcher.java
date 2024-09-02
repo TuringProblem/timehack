@@ -1,4 +1,4 @@
-package com.application.javafxtest.model;
+package com.application.javafxtest.model.interfaces;
 
 import javafx.event.ActionEvent;
 

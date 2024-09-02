@@ -1,4 +1,4 @@
-package com.application.javafxtest.controller;
+package com.application.javafxtest.controller.login;
 
 import com.application.javafxtest.SceneManager;
 import com.application.javafxtest.data.User;

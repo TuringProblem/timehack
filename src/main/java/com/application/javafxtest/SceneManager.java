@@ -1,11 +1,8 @@
 package com.application.javafxtest;
 
-import com.application.javafxtest.data.User;
-import com.application.javafxtest.model.SceneSwitcher;
+import com.application.javafxtest.model.interfaces.SceneSwitcher;
 import com.application.javafxtest.model.UserPreferences;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

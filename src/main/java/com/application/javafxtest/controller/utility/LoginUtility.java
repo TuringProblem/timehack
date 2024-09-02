@@ -1,4 +1,4 @@
-package com.application.javafxtest.controller;
+package com.application.javafxtest.controller.utility;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
