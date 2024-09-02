@@ -2,8 +2,11 @@ package com.application.javafxtest.controller;
 
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.model.UserPreferences;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
+
+import java.util.function.BiFunction;
 
 public abstract class BaseController {
     @FXML protected ToggleButton themeToggle;
@@ -19,6 +22,13 @@ public abstract class BaseController {
             updateThemeToggleText();
             themeToggle.setOnAction(event -> toggleTheme());
         }
+    }
+
+    public void setupEventHandlers() {
+        BiFunction<ActionEvent, Runnable, Void> eventHandler = (actionEvent, action) -> {
+          action.run();
+          return null;
+        };
     }
 
     private void toggleTheme() {

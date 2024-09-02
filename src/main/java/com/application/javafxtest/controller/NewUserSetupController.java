@@ -50,6 +50,7 @@ public class NewUserSetupController {
            googleButton.setOnAction(actionEvent -> {
 
            });
+           createOwnButton.setOnAction(actionEvent -> sceneManager.switchToHomePage());
         });
     }
 

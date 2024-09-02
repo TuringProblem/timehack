@@ -5,8 +5,12 @@ import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 /**
  * @author Override
  * @since 8/27/2024 @ 19:01
@@ -28,12 +32,14 @@ public class LoginController extends BaseController {
     public void initialize() {
         super.initialize();
         userManager = new UserManager();
-        sceneManager = new SceneManager();
-
-        signIn.setOnAction(event -> handleSignIn());
-        signUpLink.setOnAction(event -> sceneManager.switchToSignUpScene());
-        forgotPassword.setOnAction(event -> sceneManager.switchToForgotPasswordScene());
-
+        Platform.runLater(this::setupSceneManager);
+    }
+    private void setupSceneManager() {
+        Stage stage = (Stage) emailField.getScene().getWindow();
+        sceneManager = new SceneManager(stage);
+        signIn.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, this::handleSignIn));
+        signUpLink.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, sceneManager::switchToSignUpScene));
+        forgotPassword.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, sceneManager::switchToForgotPasswordScene));
     }
 
     private void handleSignIn() {
@@ -43,7 +49,7 @@ public class LoginController extends BaseController {
 
         if (!userManager.userExists(email)) {
             showAlert("Create an Account", "This email has not been found in our database");
-            sceneManager.switchScene("/com/application/javafxtest/signup.fxml");
+            sceneManager.switchScene("/com/application/javafxtest/login/signup.fxml");
             return;
         }
 
@@ -54,7 +60,7 @@ public class LoginController extends BaseController {
                 if (user.isNew()) {
                     sceneManager.switchToNewUserScene();
                 } else {
-                    sceneManager.switchToExistingUserScene();
+                    sceneManager.switchToHomePage();
                 }
             }
         } else {

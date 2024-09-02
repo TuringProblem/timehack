@@ -1,10 +1,12 @@
 package com.application.javafxtest.controller.login;
 
 import com.application.javafxtest.SceneManager;
+import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.controller.LoginUtility;
 import com.application.javafxtest.data.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,28 +18,32 @@ import javafx.stage.Stage;
  * @see <a href="https://github.com/TuringProblem">GitHub Profile</a>
  */
 
-public class SignUpController {
+public class SignUpController extends BaseController {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
     @FXML private Button signUpButton;
     @FXML private Button backToLoginButton;
-    private UserManager userManager;
-    public SceneManager scene = new SceneManager();
+    public SceneManager scene;
     public LoginUtility logs = new LoginUtility();
+    private UserManager userManager;
     @FXML
-    private void initialize() {
+    @Override
+    public void initialize() {
+        super.initialize();
         userManager = new UserManager();
-
-        Platform.runLater(() -> {
-            Stage currentStage = (Stage) signUpButton.getScene().getWindow();
-            scene = new SceneManager(currentStage);
-            signUpButton.setOnAction(actionEvent -> handleSignUp());
-            backToLoginButton.setOnAction(actionEvent -> scene.signInScreen());
-        });
+        Platform.runLater(this::setupScene);
     }
-    @FXML
+
+    private void setupScene() {
+        Stage stage = (Stage) emailField.getScene().getWindow();
+        scene = new SceneManager(stage);
+        backToLoginButton.setOnAction(actionEvent -> scene.switchScene(actionEvent, scene::signInScreen));
+        signUpButton.setOnAction(actionEvent -> handleSignUp());
+    }   
+
+
     private void handleSignUp() {
 
         String email = emailField.getText();
@@ -65,6 +71,6 @@ public class SignUpController {
     }
     @FXML
     private void goBackToLogin() {
-        backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/hello-view.fxml"));
+        backToLoginButton.setOnAction(actionEvent -> scene.switchScene("/com/application/javafxtest/login/hello-view.fxml"));
     }
 }

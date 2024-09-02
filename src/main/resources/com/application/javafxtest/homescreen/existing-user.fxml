@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.application.javafxtest.controller.HomeController"
+            prefHeight="600.0" prefWidth="800.0" styleClass="root">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="header">
+            <Label text="Plan" styleClass="logo-text"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Dashboard" styleClass="nav-button"/>
+            <Button text="Calendar" styleClass="nav-button"/>
+            <Button text="Analytics" styleClass="nav-button"/>
+            <Button styleClass="user-button">
+                <graphic>
+                    <Circle radius="15" styleClass="user-circle"/>
+                </graphic>
+            </Button>
+        </HBox>
+    </top>
+    <left>
+        <VBox styleClass="sidebar">
+            <DatePicker fx:id="datePicker" styleClass="date-picker"/>
+            <ListView fx:id="categoriesList" styleClass="categories-list"/>
+            <VBox styleClass="prioritize-section">
+                <Label text="Prioritize" styleClass="section-header"/>
+                <!-- Add prioritize items here -->
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="main-content">
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="week-navigation">
+                <Button text="&lt;" styleClass="nav-arrow"/>
+                <Label fx:id="weekLabel" text="April 13 - 19, 2020" styleClass="week-label"/>
+                <Button text="&gt;" styleClass="nav-arrow"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="+ Create" styleClass="create-button"/>
+            </HBox>
+            <ScrollPane fitToWidth="true" styleClass="schedule-scroll">
+                <GridPane fx:id="scheduleGrid" styleClass="schedule-grid">
+                    <!-- Schedule content will be added dynamically -->
+                </GridPane>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

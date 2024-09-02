@@ -27,24 +27,24 @@
     -fx-background-color: #39e75f;
     -fx-text-fill: #FFF;
 }
-
+.subtitle-label {
+    -fx-text-fill: #FFFFFF;
+}
 .secondary-button {
     -fx-background-color: #1f2937;
     -fx-text-fill: #FFFFFF;
     -fx-border-color: #4b5563;
 }
-
 .hyperlink {
     -fx-text-fill: #39e75f;
-}
-.text {
-    -fx-text-fill: #fff;
 }
 .hyperlink:hover {
     -fx-background-color: transparent;
     -fx-text-fill: #fff;
 }
-
+.text {
+    -fx-text-fill: #fff;
+}
 .theme-toggle {
     -fx-background-color: transparent;
     -fx-text-fill: #FFFFFF;
