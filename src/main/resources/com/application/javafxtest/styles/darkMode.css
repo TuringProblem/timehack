@@ -36,7 +36,7 @@
     -fx-border-color: #4b5563;
 }
 .hyperlink {
-    -fx-text-fill: #6FC2766FC2766FC2766FC2766FC2766FC276;
+    -fx-text-fill: #6FC276;
 }
 .hyperlink:hover {
     -fx-background-color: transparent;
