@@ -19,6 +19,7 @@ public class LoginUtility {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+        
     }
 
     public void showErrorAlert(String title, String content) {
