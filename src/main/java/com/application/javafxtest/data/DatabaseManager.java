@@ -3,6 +3,7 @@ package com.application.javafxtest.data;
 import com.application.javafxtest.model.Lifestyles;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -153,6 +154,64 @@ public class DatabaseManager {
             System.out.printf("Error updating user status: %s\n", e.getMessage());
         }
     }
-    private int[] stringToIntArray(String s) { return Arrays.stream(s.split(",")).mapToInt(Integer::parseInt).toArray();}
+
+    public boolean saveResetToken(String email, String token, Instant expiry) {
+       String sql = "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+            pstmnt.setString(1, token);
+            pstmnt.setTimestamp(2, Timestamp.from(expiry));
+            pstmnt.setString(3, email);
+            int affectedRows = pstmnt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.printf("Error loading %s\n", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean isValidResetToken(String token) {
+        String sql = "SELECT reset_token_expiry FROM users WHERE reset_token = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+            pstmnt.setString(1, token);
+            ResultSet rs = pstmnt.executeQuery();
+                if (rs.next()) {
+                    Timestamp expiry = rs.getTimestamp("reset_token_expiry");
+                    return expiry != null && expiry.toInstant().isAfter(Instant.now());
+                }
+            } catch (SQLException e) {
+                System.out.printf("Error checking reset token: %s\n", e.getMessage());
+            }
+            return false;
+        }
+
+        public String getEmailByResetToken(String token) {
+        String sql = "SELECT email FROM users WHERE reset_token = ?";
+            try (Connection conn = DriverManager.getConnection(DB_URL);
+                 PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+               pstmnt.setString(1, token);
+               ResultSet rs = pstmnt.executeQuery();
+               if (rs.next()) {
+                   return rs.getString("email");
+               }
+            }catch (SQLException e) {
+                System.out.printf("Error getting email by reset token: %s\n", e.getMessage());
+            }
+            return null;
+        }
+        public boolean updatePasswordAndClearToken(String email, String newHashWithSalt) {
+            String sql = "UPDATE users SET hash_with_salt = ?, reset_token = NULL, reset_token_expiry = NULL WHERE email = ?";
+            try (Connection conn = DriverManager.getConnection(DB_URL);
+                 PreparedStatement pstmnt = conn.prepareStatement(sql)) {
+                pstmnt.setString(1, newHashWithSalt);
+                pstmnt.setString(2, email);
+                int affectedRows = pstmnt.executeUpdate();
+                return affectedRows > 0;
+            } catch (SQLException e) {
+                System.out.printf("Error updating password and clearing token: %s\n");
+                return false;
+            }
+        }
 }
 
