@@ -4,6 +4,8 @@ module com.application.javafxtest {
 
     requires com.dlsc.formsfx;
     requires java.sql;
+    requires mail;
+    requires activation;
 
     opens com.application.javafxtest to javafx.fxml;
     exports com.application.javafxtest;
