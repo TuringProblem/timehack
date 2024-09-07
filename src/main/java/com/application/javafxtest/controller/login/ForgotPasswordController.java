@@ -4,7 +4,10 @@ import com.application.javafxtest.SceneManager;
 import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.controller.utility.LoginUtility;
 import com.application.javafxtest.data.DatabaseManager;
+import com.application.javafxtest.data.EmailService;
+import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,33 +21,46 @@ public class ForgotPasswordController extends BaseController {
 
     private SceneManager scene;
     private LoginUtility logs = new LoginUtility();
+
     private UserManager userManager;
+    private EmailService emailService;
+
+    @Inject
+    public ForgotPasswordController(SceneManager scene, LoginUtility logs,
+                                    UserManager userManager, EmailService emailService) {
+        this.scene = scene;
+        this.logs = logs;
+        this.userManager = userManager;
+        this.emailService = emailService;
+    }
     @FXML
     @Override
     public void initialize() {
        super.initialize();
-       userManager = new UserManager();
        Platform.runLater(this::setupScene);
     }
+
     private void setupScene() {
         Stage stage = (Stage) emailField.getScene().getWindow();
         scene = new SceneManager(stage);
-        submitButton.setOnAction(actionEvent -> handleVerify());
+        submitButton.setOnAction(actionEvent -> handleSubmit());
         backToLogin.setOnAction(actionEvent -> scene.switchScene(actionEvent, scene::signInScreen));
     }
 
-    private void handleVerify() {
+    @FXML
+    private void handleSubmit() {
         String email = emailField.getText();
-        if (!logs.isValidEmail(email)) {
-            logs.showErrorAlert("Invalid Email", "Please enter a valid email address.");
-        } else if (userManager.userExists(email)){
-            logs.showInformationAlert("Email sent", "Please check your inbox for a password reset");
-            submitButton.setOnAction(actionEvent -> scene.switchScene(actionEvent, scene::signInScreen));
+        if (userManager.userExists(email)) {
+            String resetToken = userManager.generateResetToken(email);
+            if (resetToken != null) {
+                emailService.sendPasswordResetEmail(email, resetToken);
+                logs.showInformationAlert("Password Reset", "A password reset link has been sent to your email.");
+                scene.signInScreen();
+            } else {
+                logs.showErrorAlert("Error", "Failed to generate reset token. Please try again.");
+            }
         } else {
-            logs.showErrorAlert("Invalid Email", "That email does not exist, try creating an account");
-
+            logs.showErrorAlert("Error", "No account found with this email address.");
         }
-
     }
-
 }

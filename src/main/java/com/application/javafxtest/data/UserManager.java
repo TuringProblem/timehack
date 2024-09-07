@@ -10,8 +10,8 @@ import java.util.UUID;
 public class UserManager {
     private DatabaseManager dbManager;
 
-    public UserManager() {
-        dbManager = new DatabaseManager();
+    public UserManager(DatabaseManager dbManager) {
+        this.dbManager = dbManager;
     }
 
     public String generateResetToken(String email) {

@@ -5,6 +5,8 @@ import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import com.application.javafxtest.model.UserPreferences;
+import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,11 +29,17 @@ public class LoginController extends BaseController {
     private UserManager userManager;
     private SceneManager sceneManager;
 
+    @Inject
+    public LoginController(UserPreferences userPreferences, UserManager userManager, SceneManager sceneManager) {
+        super(userPreferences);
+        this.userManager = userManager;
+        this.sceneManager = sceneManager;
+    }
+
     @FXML
     @Override
     public void initialize() {
         super.initialize();
-        userManager = new UserManager();
         Platform.runLater(this::setupSceneManager);
     }
     private void setupSceneManager() {

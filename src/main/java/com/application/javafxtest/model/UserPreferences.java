@@ -14,16 +14,7 @@ public class UserPreferences {
     /**
      * @see <a href="https://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java">Singleton</a>
      */
-    private static UserPreferences instance;//made UserPreferences a Singleton
     private BooleanProperty darkMode = new SimpleBooleanProperty(false);
-
-    private UserPreferences() {}
-    public static UserPreferences getInstance() {
-        if (instance == null) {
-            instance = new UserPreferences();
-        }
-        return instance;
-    }
 
     public boolean isDarkMode() {
         return darkMode.get();

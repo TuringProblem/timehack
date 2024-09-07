@@ -1,7 +1,9 @@
 package com.application.javafxtest;
 
+import com.application.javafxtest.model.FeatherModule;
 import com.application.javafxtest.model.interfaces.SceneSwitcher;
 import com.application.javafxtest.model.UserPreferences;
+import dev.mccue.feather.Feather;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,8 +24,10 @@ import java.net.URL;
 public class SceneManager implements SceneSwitcher {
      public Stage primaryStage;
      private UserPreferences userPreferences;
+     private Feather feather;
 
      public SceneManager () {
+         this.feather = Feather.with(new FeatherModule(this));
          this.primaryStage = new Stage();
          this.userPreferences = UserPreferences.getInstance();
      }
@@ -42,6 +46,7 @@ public class SceneManager implements SceneSwitcher {
         }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFilePath));
+            loader.setControllerFactory(this.feather::instance);
             Parent root = loader.load();
             System.out.printf("root successfully loaded\nAttemping to load %s...\n", root);
             Scene scene = new Scene(root);

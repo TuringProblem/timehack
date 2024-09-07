@@ -8,8 +8,11 @@ public abstract class BaseController {
     @FXML protected ToggleButton themeToggle;
     protected UserPreferences userPreferences;
 
+    protected BaseController(UserPreferences userPreferences) {
+        this.userPreferences = userPreferences;
+    }
+
     public void initialize() {
-        userPreferences = UserPreferences.getInstance();
         initializeThemeToggle();
     }
     private void initializeThemeToggle() {

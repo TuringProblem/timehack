@@ -36,12 +36,11 @@ javafx {
 
 dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
-    implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
-    implementation 'javax.mail:mail:1.5.0-b01'
-    implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
-
-    implementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
-
+    implementation group: 'org.eclipse.angus', name: 'jakarta.mail', version: '2.0.3'
+    implementation group: 'dev.mccue', name: 'jdk-httpserver', version: '2024.05.08'
+    implementation group: 'dev.mccue', name: 'urlparameters', version: '2024.01.05'
+    implementation group: 'com.samskivert', name: 'jmustache', version: '1.16'
+    implementation group: 'dev.mccue', name: 'feather', version: '2023.08.21'
     implementation 'org.openjfx:javafx-controls:21'
     implementation 'org.openjfx:javafx-fxml:21'
 

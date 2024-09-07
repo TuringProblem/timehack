@@ -4,8 +4,13 @@ module com.application.javafxtest {
 
     requires com.dlsc.formsfx;
     requires java.sql;
-    requires mail;
-    requires activation;
+    requires jdk.httpserver;
+    requires dev.mccue.jdk.httpserver;
+    requires dev.mccue.urlparameters;
+    requires dev.mccue.feather;
+    requires com.samskivert.jmustache;
+    requires jakarta.inject;
+    requires jakarta.mail;
 
     opens com.application.javafxtest to javafx.fxml;
     exports com.application.javafxtest;

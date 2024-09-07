@@ -1,8 +1,11 @@
 package com.application.javafxtest.controller;
 
 import com.application.javafxtest.SceneManager;
+import com.application.javafxtest.data.DatabaseManager;
 import com.application.javafxtest.data.UserManager;
+import jakarta.inject.Inject;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
@@ -11,13 +14,15 @@ public class OnboardingController {
     @FXML private Button createOwnButton;
     @FXML private Button browseLifestylesButton;
 
-    private SceneManager sm;
-    private UserManager um;
-
+    private SceneManager sceneManager;
+    private UserManager userManager;
+    @Inject
+    public OnboardingController(UserManager userManager, SceneManager sceneManager) {
+        this.userManager= userManager;
+        this.sceneManager= sceneManager;
+    }
     @FXML
     public void initialize() {
-       sm = new SceneManager();
-       um = new UserManager();
        calendarTypeComboBox.getItems().addAll("Google", "Apple", "Outlook");
 
     }
