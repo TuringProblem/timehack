@@ -5,7 +5,9 @@ import com.application.javafxtest.controller.BaseController;
 import com.application.javafxtest.data.SHA;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import com.application.javafxtest.model.FeatherModule;
 import com.application.javafxtest.model.UserPreferences;
+import com.application.javafxtest.model.interfaces.SceneManagerFactory;
 import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -28,12 +30,14 @@ public class LoginController extends BaseController {
 
     private UserManager userManager;
     private SceneManager sceneManager;
+    private SceneManagerFactory sceneManagerFactory;
 
     @Inject
-    public LoginController(UserPreferences userPreferences, UserManager userManager, SceneManager sceneManager) {
+    public LoginController(UserPreferences userPreferences, UserManager userManager, SceneManager sceneManager, SceneManagerFactory sceneManagerFactory) {
         super(userPreferences);
         this.userManager = userManager;
         this.sceneManager = sceneManager;
+        this.sceneManagerFactory = sceneManagerFactory;
     }
 
     @FXML
@@ -44,7 +48,7 @@ public class LoginController extends BaseController {
     }
     private void setupSceneManager() {
         Stage stage = (Stage) emailField.getScene().getWindow();
-        sceneManager = new SceneManager(stage);
+        SceneManager sceneManager  = this.sceneManagerFactory.create(stage);
         signIn.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, this::handleSignIn));
         signUpLink.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, sceneManager::switchToSignUpScene));
         forgotPassword.setOnAction(actionEvent -> sceneManager.switchScene(actionEvent, sceneManager::switchToForgotPasswordScene));

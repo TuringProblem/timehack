@@ -26,14 +26,14 @@ public class SceneManager implements SceneSwitcher {
      private UserPreferences userPreferences;
      private Feather feather;
 
-     public SceneManager () {
-         this.feather = Feather.with(new FeatherModule(this));
-         this.primaryStage = new Stage();
-         this.userPreferences = UserPreferences.getInstance();
+     public SceneManager (FeatherModule featherModule) {
+         this(new Stage(), featherModule);//this will delegate to other constructor.
      }
-    public SceneManager(Window primaryStage) {
+
+    public SceneManager(Window primaryStage, FeatherModule featherModule) {
         this.primaryStage = (Stage) primaryStage;
-        this.userPreferences = UserPreferences.getInstance();
+        this.userPreferences = featherModule.userPreferences();
+        this.feather = Feather.with(featherModule.withSceneManager(this));
     }
 
     public void switchScene(String fxmlFilePath) { loadScene(fxmlFilePath); }
@@ -51,7 +51,7 @@ public class SceneManager implements SceneSwitcher {
             System.out.printf("root successfully loaded\nAttemping to load %s...\n", root);
             Scene scene = new Scene(root);
             System.out.printf("scene successfully loaded\nAttemping to apply the theme %s...\n", scene);
-            userPreferences.applyTheme(scene);
+           this.userPreferences.applyTheme(scene);
             System.out.println("setting the scene now\n");
             primaryStage.setScene(scene);
             System.out.println("now trying to show\n");

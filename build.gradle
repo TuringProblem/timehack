@@ -41,6 +41,7 @@ dependencies {
     implementation group: 'dev.mccue', name: 'urlparameters', version: '2024.01.05'
     implementation group: 'com.samskivert', name: 'jmustache', version: '1.16'
     implementation group: 'dev.mccue', name: 'feather', version: '2023.08.21'
+    implementation group: 'dev.mccue', name: 'jdbc', version: '2024.08.11'
     implementation 'org.openjfx:javafx-controls:21'
     implementation 'org.openjfx:javafx-fxml:21'
 

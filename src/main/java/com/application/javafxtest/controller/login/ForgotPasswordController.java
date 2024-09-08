@@ -7,6 +7,9 @@ import com.application.javafxtest.data.DatabaseManager;
 import com.application.javafxtest.data.EmailService;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.data.UserManager;
+import com.application.javafxtest.model.FeatherModule;
+import com.application.javafxtest.model.UserPreferences;
+import com.application.javafxtest.model.interfaces.SceneManagerFactory;
 import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,14 +27,17 @@ public class ForgotPasswordController extends BaseController {
 
     private UserManager userManager;
     private EmailService emailService;
+    private SceneManagerFactory sceneManagerFactory;
 
     @Inject
-    public ForgotPasswordController(SceneManager scene, LoginUtility logs,
-                                    UserManager userManager, EmailService emailService) {
+    public ForgotPasswordController(UserPreferences userPreferences, SceneManager scene, LoginUtility logs,
+                                    UserManager userManager, EmailService emailService, SceneManagerFactory sceneManagerFactory) {
+        super(userPreferences);
         this.scene = scene;
         this.logs = logs;
         this.userManager = userManager;
         this.emailService = emailService;
+        this.sceneManagerFactory = sceneManagerFactory;
     }
     @FXML
     @Override
@@ -42,7 +48,7 @@ public class ForgotPasswordController extends BaseController {
 
     private void setupScene() {
         Stage stage = (Stage) emailField.getScene().getWindow();
-        scene = new SceneManager(stage);
+        scene = this.sceneManagerFactory.create(stage);
         submitButton.setOnAction(actionEvent -> handleSubmit());
         backToLogin.setOnAction(actionEvent -> scene.switchScene(actionEvent, scene::signInScreen));
     }

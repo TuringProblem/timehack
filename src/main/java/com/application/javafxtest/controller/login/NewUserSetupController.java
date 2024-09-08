@@ -3,6 +3,7 @@ package com.application.javafxtest.controller.login;
 import com.application.javafxtest.SceneManager;
 import com.application.javafxtest.data.User;
 import com.application.javafxtest.model.UserPreferences;
+import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +19,14 @@ public class NewUserSetupController {
     @FXML private ToggleButton darkModeToggle;
     private SceneManager sceneManager;
     private UserPreferences userPrefs;
+    @Inject
+    public NewUserSetupController(SceneManager sceneManager, UserPreferences userPreferences) {
+       this.sceneManager = sceneManager;
+       this.userPrefs = userPreferences;
+    }
     @FXML
     public void initialize() {
-        sceneManager = new SceneManager();
-        userPrefs = UserPreferences.getInstance();
+
     }
 
     @FXML

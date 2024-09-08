@@ -1,13 +1,15 @@
 package com.application.javafxtest.data;
 
-import com.application.javafxtest.model.Lifestyles;
+import com.application.javafxtest.model.Lifestyle;
+import dev.mccue.jdbc.ResultSets;
+import dev.mccue.jdbc.UncheckedSQLException;
 
+import javax.sql.DataSource;
+import java.lang.invoke.MethodHandles;
 import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Override
@@ -18,14 +20,11 @@ import java.util.stream.Collectors;
 public class DatabaseManager {
 
     private static final String DB_URL = "jdbc:sqlite:users.db";
+    private DataSource db;
 
-    public DatabaseManager() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            intializeDatabase();
-        } catch (ClassNotFoundException e) {
-            System.out.printf("JDBC Driver not found: %s\n", e.getMessage());
-        }
+    public DatabaseManager(DataSource db) {
+        this.db = db;
+        intializeDatabase();
     }
 
     private void intializeDatabase() {
@@ -34,18 +33,18 @@ public class DatabaseManager {
                      "hash_with_salt NOT NULL," +
                      "is_new INTEGER NOT NULL)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
             Statement stmnt = conn.createStatement()) {
             stmnt.execute(sql);
         } catch (SQLException e) {
-            System.out.printf("Error initializing Database: %s\n", e.getMessage());
+            throw new UncheckedSQLException("Error initializing Database: ", e);
         }
     }
 
     public boolean addUser(String email, String hashWithSalt) {
         String sql = "INSERT INTO users(email, hash_with_salt,is_new) VALUES(?,?,?)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, email);
             pstmnt.setString(2, hashWithSalt);
@@ -58,14 +57,15 @@ public class DatabaseManager {
         }
     }
 
-    public void addLifeStyle(Lifestyles lifestyle) {
+
+    public void addLifeStyle(Lifestyle lifestyle) {
         String sql = "INSERT INTO lifestyles (creator_id, title, description, content, is_public) VALUES (?, ?, ?, ?,?)";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
-            pstmnt.setInt(1, lifestyle.getCreatorId());
-            pstmnt.setString(2, lifestyle.getTitle());
-            pstmnt.setString(3, lifestyle.getDescription());
-            pstmnt.setString(4, lifestyle.getContent());
+            pstmnt.setInt(1, lifestyle.creatorId());
+            pstmnt.setString(2, lifestyle.title());
+            pstmnt.setString(3, lifestyle.description());
+            pstmnt.setString(4, lifestyle.content());
             pstmnt.setBoolean(5, lifestyle.isPublic());
             pstmnt.executeQuery();
         } catch (SQLException e) {
@@ -73,23 +73,18 @@ public class DatabaseManager {
         }
     }
 
-    public List<Lifestyles> getPublicLifestyles() {
-        List<Lifestyles> lifestylesList = new ArrayList<>();
+    public List<Lifestyle> getPublicLifestyles() {
+        List<Lifestyle> lifestylesList = new ArrayList<>();
         String sql = "SELECT * FROM lifestyles WHERE is_public = true";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Lifestyles lifestyle = new Lifestyles(
-                rs.getInt("id"),
-                rs.getInt("creator_id"),
-                rs.getString("title"),
-                rs.getString("description"),
-                rs.getString("content"),
-                rs.getBoolean("is_public"));
-                lifestylesList.add(lifestyle);
+                Lifestyle lifestyles = ResultSets.getRecord(rs, Lifestyle.class, MethodHandles.lookup());//jdbc code needs to see the data
+                
+                //hand him permission to vew the class
+                lifestylesList.add(lifestyles);
             }
-
         } catch (SQLException e) {
             System.out.println("Error getting public lifestyles: " + e.getMessage());
         }
@@ -98,7 +93,7 @@ public class DatabaseManager {
 
     public User getUser(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, email);
             ResultSet rs = pstmnt.executeQuery();
@@ -114,7 +109,7 @@ public class DatabaseManager {
     public String getUserHashWithSalt(String email) {
         String sql = "SELECT hash_with_salt FROM users WHERE email = ?";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
         PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, email);
             ResultSet rs = pstmnt.executeQuery();
@@ -129,7 +124,7 @@ public class DatabaseManager {
 
     public boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, email);
             try (ResultSet rs = pstmnt.executeQuery()) {
@@ -145,7 +140,7 @@ public class DatabaseManager {
 
     public void updateUserStatus(String email, boolean isNew) {
         String sql = "UPDATE users SET is_new = ? WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setInt(1, isNew ? 1 : 0);
             pstmnt.setString(2, email);
@@ -157,7 +152,7 @@ public class DatabaseManager {
 
     public boolean saveResetToken(String email, String token, Instant expiry) {
        String sql = "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, token);
             pstmnt.setTimestamp(2, Timestamp.from(expiry));
@@ -172,7 +167,7 @@ public class DatabaseManager {
 
     public boolean isValidResetToken(String token) {
         String sql = "SELECT reset_token_expiry FROM users WHERE reset_token = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = db.getConnection();
              PreparedStatement pstmnt = conn.prepareStatement(sql)) {
             pstmnt.setString(1, token);
             ResultSet rs = pstmnt.executeQuery();
@@ -188,7 +183,7 @@ public class DatabaseManager {
 
         public String getEmailByResetToken(String token) {
         String sql = "SELECT email FROM users WHERE reset_token = ?";
-            try (Connection conn = DriverManager.getConnection(DB_URL);
+            try (Connection conn = db.getConnection();
                  PreparedStatement pstmnt = conn.prepareStatement(sql)) {
                pstmnt.setString(1, token);
                ResultSet rs = pstmnt.executeQuery();
@@ -202,7 +197,7 @@ public class DatabaseManager {
         }
         public boolean updatePasswordAndClearToken(String email, String newHashWithSalt) {
             String sql = "UPDATE users SET hash_with_salt = ?, reset_token = NULL, reset_token_expiry = NULL WHERE email = ?";
-            try (Connection conn = DriverManager.getConnection(DB_URL);
+            try (Connection conn = db.getConnection();
                  PreparedStatement pstmnt = conn.prepareStatement(sql)) {
                 pstmnt.setString(1, newHashWithSalt);
                 pstmnt.setString(2, email);
